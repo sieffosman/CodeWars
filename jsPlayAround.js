@@ -17,13 +17,76 @@ function getRandomChoice() {
     const randomIndex = Math.floor(Math.random() * choices.length);
     return choices[randomIndex];
   }
-  
-  // Example usage:
+  //Test
   const randomChoice = getRandomChoice();
   console.log("Randomly selected choice:", randomChoice);
   
 // *Conditionals*
 //Create a function that takes in a choice (rock, paper, or scissors) and determines if they won a game of rock paper scissors against a bot using the above function
+// Function to get a random choice (rock, paper, or scissors)
+function getRandomChoice() {
+  const choices = ["rock", "paper", "scissors"];
+  const randomIndex = Math.floor(Math.random() * choices.length);
+  return choices[randomIndex];
+}
+
+// Function to check the game result
+function checkGameResult(userChoice) {
+  // Get the bot's choice
+  const botChoice = getRandomChoice();
+  
+  // Determine the winner
+  if (userChoice === botChoice) {
+    return "It's a tie!";
+  } else if (
+    (userChoice === "rock" && botChoice === "scissors") ||
+    (userChoice === "scissors" && botChoice === "paper") ||
+    (userChoice === "paper" && botChoice === "rock")
+  ) {
+    return "You win!";
+  } else {
+    return "You lose!";
+  }
+}
+
+// Test
+const userChoice = "rock"; // Replace with the user's choice (rock, paper, or scissors)
+const gameResult = checkGameResult(userChoice);
+console.log("Game result:", gameResult);
 
 //*Loops*
 //Create a function that takes an array of choices. Play the game x times where x is the number of choices in the array. Print the results of each game to the console.
+// Function to get a random choice (rock, paper, or scissors)
+function getRandomChoice() {
+  const choices = ["rock", "paper", "scissors"];
+  const randomIndex = Math.floor(Math.random() * choices.length);
+  return choices[randomIndex];
+}
+
+// Function to determine the winner of a single game
+function getGameResult(userChoice, botChoice) {
+  if (userChoice === botChoice) {
+    return "It's a tie!";
+  } else if (
+    (userChoice === "rock" && botChoice === "scissors") ||
+    (userChoice === "scissors" && botChoice === "paper") ||
+    (userChoice === "paper" && botChoice === "rock")
+  ) {
+    return "You win!";
+  } else {
+    return "You lose!";
+  }
+}
+
+// Function to play the game x times and print the results
+function playRockPaperScissors(choicesArray) {
+  for (const userChoice of choicesArray) {
+    const botChoice = getRandomChoice();
+    const gameResult = getGameResult(userChoice, botChoice);
+    console.log(`User choice: ${userChoice}, Bot choice: ${botChoice}, Result: ${gameResult}`);
+  }
+}
+
+// Example usage:
+const choicesArray = ["rock", "paper", "scissors"];
+playRockPaperScissors(choicesArray);
