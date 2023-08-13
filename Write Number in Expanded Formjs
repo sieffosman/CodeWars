@@ -1,0 +1,35 @@
+
+function expandedForm(number) {
+  // Check if the input is a number
+  if (typeof number !== 'number') {
+    throw new Error('Input must be a number');
+  }
+
+  // Convert the number to a string, split it into digits, and convert back to numbers
+  const digits = number.toString().split('').map(Number);
+
+  // Initialize an array to hold place values
+  const placeValues = [];
+
+  // Initialize a multiplier for calculating place values
+  let multiplier = 1;
+
+  // Loop through the digits from right to left
+  for (let i = digits.length - 1; i >= 0; i--) {
+    // Calculate the value of the current digit multiplied by its place value
+    const value = digits[i] * multiplier;
+    
+    // Add non-zero place values to the beginning of the array
+    if (value > 0) {
+      placeValues.unshift(value);
+    }
+    
+    // Move to the next place value (tens, hundreds, thousands, etc.)
+    multiplier *= 10;
+  }
+
+  // Join the place values using the addition operator and return the result as a string
+  return placeValues.join(' + ');
+}
+
+
