@@ -1,0 +1,40 @@
+function stat(strg) {
+  if (!strg) {
+    return "";
+  }
+
+  const timesInSeconds = strg.split(", ").map(time => {
+    const [h, m, s] = time.split("|").map(Number);
+    return h * 3600 + m * 60 + s;
+  });
+
+  const range = formatTime(Math.max(...timesInSeconds) - Math.min(...timesInSeconds));
+
+  const sum = timesInSeconds.reduce((total, time) => total + time, 0);
+  const averageInSeconds = Math.floor(sum / timesInSeconds.length);
+  const average = formatTime(averageInSeconds);
+
+  const sortedTimes = timesInSeconds.slice().sort((a, b) => a - b);
+  const medianInSeconds = sortedTimes.length % 2 === 0
+    ? Math.floor((sortedTimes[sortedTimes.length / 2 - 1] + sortedTimes[sortedTimes.length / 2]) / 2)
+    : sortedTimes[Math.floor(sortedTimes.length / 2)];
+  const median = formatTime(medianInSeconds);
+
+  return `Range: ${range} Average: ${average} Median: ${median}`;
+}
+
+function formatTime(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return `${padNumber(h)}|${padNumber(m)}|${padNumber(s)}`;
+}
+
+function padNumber(number) {
+  return number.toString().padStart(2, "0");
+}
+
+// Example usage
+const raceResults = "01|15|59, 1|47|6, 01|17|20, 1|32|34, 2|3|17";
+const result = stat(raceResults);
+console.log(result); // Output: "Range: 00|47|18 Average: 01|35|15 Median: 01|32|34"
